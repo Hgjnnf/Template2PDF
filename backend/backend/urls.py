@@ -23,5 +23,5 @@ router.register(r'upload', UploadViewSet, basename="upload")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
 ]
