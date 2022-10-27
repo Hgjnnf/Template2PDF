@@ -24,4 +24,5 @@ class DownloadViewSet(ViewSet):
     serializer_class = DownloadSerializer
 
     def create(self, request):
-        return
+        print(request.data)
+        return Response("test")

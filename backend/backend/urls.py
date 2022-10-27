@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from .views import UploadViewSet
+from .views import UploadViewSet, DownloadViewSet
 
 router = routers.DefaultRouter()
 router.register(r'upload', UploadViewSet, basename="upload")
+router.register(r'download', DownloadViewSet, basename="download")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
