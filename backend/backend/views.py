@@ -3,7 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from .utils import Utils
-from .serializers import UploadSerializer
+from .serializers import UploadSerializer, DownloadSerializer
 
 class UploadViewSet(ViewSet):
     serializer_class = UploadSerializer
@@ -19,3 +19,9 @@ class UploadViewSet(ViewSet):
 
         response = Utils.get_variable_nodes(file_uploaded.file)
         return Response(response)
+
+class DownloadViewSet(ViewSet):
+    serializer_class = DownloadSerializer
+
+    def create(self, request):
+        return
