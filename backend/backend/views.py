@@ -16,7 +16,7 @@ class UploadViewSet(ViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
         
         if file_uploaded.content_type != 'text/html':
-            return Response(status=status.HTTP_406_NOT_ACCEPTED)
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
 
         response = Utils.get_variable_nodes(file_uploaded.file)
         return Response(response, status=status.HTTP_200_OK)
@@ -32,12 +32,12 @@ class DownloadViewSet(ViewSet):
         if not file_uploaded:
             return Response("No file was uploaded", status=status.HTTP_404_NOT_FOUND)
         if file_uploaded.content_type != 'text/html':
-            return Response("Wrong file type", status=status.HTTP_406_NOT_ACCEPTED)
+            return Response("Wrong file type", status=status.HTTP_406_NOT_ACCEPTABLE)
         if not context_obj:
             return Response("Missing context", status=status.HTTP_404_NOT_FOUND)
         if not file_name:
             return Response("Missing file name", status=status.HTTP_404_NOT_FOUND)
-
+            
         context_dict = json.loads(context_obj)
         pdf = Utils.render_to_pdf(file_uploaded, context_dict)
         file_name += '.pdf'
