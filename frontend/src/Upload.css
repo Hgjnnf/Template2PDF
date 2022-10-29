@@ -1,0 +1,15 @@
+.file-drop {
+  border: 2px rgb(223, 223, 223) solid;
+  width: 50%;
+  margin: auto;
+}
+
+.dropzone {
+  margin: 20px;
+  border: 1px gray dashed;
+}
+
+#title {
+  margin: auto;
+  text-align: center;
+}
