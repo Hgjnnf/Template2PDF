@@ -1,0 +1,44 @@
+.main {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: [first] 25% [line2] 50% [line3] 25% [end];
+  grid-template-rows: [row1-start] 10% [row1-end last-line];
+}
+
+.top-bar {
+  grid-area: row1-start / first / row1-end / end;
+}
+
+.file-drop {
+  height: 33vh;
+  border: 2px rgb(223, 223, 223) solid;
+  grid-area: row1-end / line2 / last-line / line3;
+  border-radius: 10px;
+  align-self: center;
+}
+
+.dropzone {
+  margin: 20px;
+  border: 1px rgb(180, 180, 180) dashed;
+  text-align: center;
+  height: 70%;
+  background-color: rgb(240, 240, 240);
+  border-radius: 10px;
+}
+
+.file-drop-bottom {
+  display: flex;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+.file {
+  display: flex;
+}
+
+.file p {
+  margin: 0;
+  margin-left: 10px;
+}
