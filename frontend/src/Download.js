@@ -2,6 +2,18 @@ import { Button, TextField } from "@mui/material";
 import "./Download.css";
 
 const Download = () => {
+  /*
+    onChange handler
+    - for text field
+    - updates the context state and filename state
+    onClick handler
+    - validation for missing field
+    - sends an api request (later) with context (converted to json), filename, and file (from the local storage)
+    - if error:
+        - windows.alert
+    - remove the file from local storage regardless
+    - redirects the user back to the upload
+    */
   const mockData = ["name", "amount", "date"];
 
   return (

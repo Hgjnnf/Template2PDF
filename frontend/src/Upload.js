@@ -5,8 +5,20 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import Button from "@mui/material/Button";
 import { AppBar, Toolbar } from "@mui/material";
 
-const Upload = (props) => {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+const Upload = () => {
+  /* 
+  onClick:
+  - send API
+  - if file upload is successful
+    - store the file in localStorage
+    - pass the resulting array as a prop to download
+    - redirect page to the download
+  - else
+    - windows.alert error 
+  */
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    maxFiles: 1,
+  });
 
   const unitFormatter = (size, unit) => {
     return size.toLocaleString("en-US", { style: "unit", unit });
@@ -17,6 +29,17 @@ const Upload = (props) => {
       {file.path} - {unitFormatter(file.size / 1000, "kilobyte")}
     </p>
   ));
+
+  const handleClick = () => {
+    // API
+    res = {
+      data: ["name", "amount", "date"],
+      status: 200,
+    };
+
+    if (res.status === 200) {
+    }
+  };
 
   return (
     <div className="main">
