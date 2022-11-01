@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDropzone } from "react-dropzone";
 import "./Upload.css";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import Button from "@mui/material/Button";
 import { AppBar, Toolbar } from "@mui/material";
+import { context } from "./Context";
+import { useHistory } from "react-router-dom";
 
 const Upload = () => {
   /* 
@@ -19,6 +21,8 @@ const Upload = () => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
   });
+  const { updateList } = useContext(context);
+  let history = useHistory();
 
   const unitFormatter = (size, unit) => {
     return size.toLocaleString("en-US", { style: "unit", unit });
@@ -31,13 +35,31 @@ const Upload = () => {
   ));
 
   const handleClick = () => {
+    const file = new FormData();
+    file.append(acceptedFiles[0]);
+
     // API
-    res = {
+
+    const res = {
       data: ["name", "amount", "date"],
       status: 200,
     };
 
     if (res.status === 200) {
+      localStorage.setItem("file", file);
+      updateList(res.data);
+      history.push("/download");
+    } else {
+      let errMsg;
+      switch (res.status) {
+        case 404:
+          errMsg = "A file is required for upload!";
+        case 406:
+          errMsg = "Wrong file type. Must be .html!";
+        default:
+          errMsg = `Unknown error. Status code: ${res.status}`;
+      }
+      alert(errMsg);
     }
   };
 
@@ -58,7 +80,9 @@ const Upload = () => {
             <DescriptionOutlinedIcon />
             {files}
           </div>
-          <Button variant="contained">Upload</Button>
+          <Button variant="contained" onClick={handleClick}>
+            Upload
+          </Button>
         </div>
       </section>
     </div>
