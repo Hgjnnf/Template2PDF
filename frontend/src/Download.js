@@ -15,14 +15,22 @@ const Download = () => {
     if (key === "filename") {
       setFileName(value);
     } else {
-      setContextObj({
-        ...context_obj,
-        key: value,
-      });
+      const new_obj = context_obj;
+      new_obj[key] = value;
+      setContextObj(new_obj);
     }
   };
 
   const handleClick = () => {
+    if (Object.keys(context_obj).length !== varList.length) {
+      alert("Missing field!");
+      return;
+    }
+
+    if (!file_name) {
+      alert("Missing file name!");
+      return;
+    }
     // API
     const res = {
       data: "",
@@ -47,10 +55,9 @@ const Download = () => {
           required={true}
           id="filled-required"
           label="filename"
-          name="filename"
           variant="filled"
           key={0}
-          onChange={(name, value) => handleChange(name, value)}
+          onChange={(e) => handleChange("filename", e.target.value)}
         />
         <span className="divider"></span>
         {varList.map((el, idx) => (
@@ -59,10 +66,9 @@ const Download = () => {
               required={true}
               id="filled-required"
               label={el}
-              name={el}
               variant="filled"
               key={idx + 1}
-              onChange={(name, value) => handleChange(name, value)}
+              onChange={(e) => handleChange(el, e.target.value)}
             />
             <span className="divider"></span>
           </>

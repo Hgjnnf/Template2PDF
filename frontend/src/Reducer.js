@@ -8,7 +8,7 @@ export const reducer = (state, action) => {
     case "UPDATE_LIST":
       return {
         ...state,
-        varList: payload.varList,
+        varList: payload,
       };
     case "CLEAR_LIST":
       return {
