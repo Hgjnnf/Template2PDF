@@ -8,16 +8,6 @@ import { context } from "./Context";
 import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
-  /* 
-  onClick:
-  - send API
-  - if file upload is successful
-    - store the file in localStorage
-    - pass the resulting array as a prop to download
-    - redirect page to the download
-  - else
-    - windows.alert error 
-  */
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
   });
