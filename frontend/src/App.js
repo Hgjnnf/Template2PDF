@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Upload from "./Upload";
 import Download from "./Download";
 import { ContextProvider } from "./Context";
-import { createBrowserHistory } from "history";
 
 function App() {
   return (

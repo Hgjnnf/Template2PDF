@@ -16,6 +16,6 @@ export const reducer = (state, action) => {
         varList: [],
       };
     default:
-      throw new Error(`No case for type ${type} found in reducer`);
+      alert(`No case for type ${type} found in reducer`);
   }
 };

@@ -5,7 +5,7 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import Button from "@mui/material/Button";
 import { AppBar, Toolbar } from "@mui/material";
 import { context } from "./Context";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
   /* 
@@ -22,21 +22,21 @@ const Upload = () => {
     maxFiles: 1,
   });
   const { updateList } = useContext(context);
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const unitFormatter = (size, unit) => {
     return size.toLocaleString("en-US", { style: "unit", unit });
   };
 
   const files = acceptedFiles.map((file) => (
-    <p>
+    <p key={"file-text"}>
       {file.path} - {unitFormatter(file.size / 1000, "kilobyte")}
     </p>
   ));
 
   const handleClick = () => {
     const file = new FormData();
-    file.append(acceptedFiles[0]);
+    file.append("file", acceptedFiles[0]);
 
     // API
 
@@ -48,14 +48,16 @@ const Upload = () => {
     if (res.status === 200) {
       localStorage.setItem("file", file);
       updateList(res.data);
-      history.push("/download");
+      navigate("/download");
     } else {
       let errMsg;
       switch (res.status) {
         case 404:
           errMsg = "A file is required for upload!";
+          break;
         case 406:
           errMsg = "Wrong file type. Must be .html!";
+          break;
         default:
           errMsg = `Unknown error. Status code: ${res.status}`;
       }
@@ -73,14 +75,16 @@ const Upload = () => {
       <section className="file-drop">
         <div {...getRootProps({ className: "dropzone" })}>
           <input {...getInputProps()} />
-          <p>Drag and drop the html file here, or click to select the file</p>
+          <p key={"dropzone-text"}>
+            Drag and drop the html file here, or click to select the file
+          </p>
         </div>
         <div className="file-drop-bottom">
           <div className="file">
             <DescriptionOutlinedIcon />
             {files}
           </div>
-          <Button variant="contained" onClick={handleClick}>
+          <Button variant="contained" onClick={() => handleClick()}>
             Upload
           </Button>
         </div>
