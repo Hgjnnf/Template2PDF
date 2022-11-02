@@ -19,10 +19,25 @@ export const ContextProvider = ({ children }) => {
     });
   };
 
+  const saveFile = (file) => {
+    dispatch({
+      type: "SAVE_FILE",
+      payload: file,
+    });
+  };
+
+  const clearFile = () => {
+    dispatch({
+      type: "CLEAR_FILE",
+    });
+  };
+
   const value = {
     ...state,
     updateList,
     clearList,
+    saveFile,
+    clearFile,
   };
 
   return <context.Provider value={value}>{children}</context.Provider>;

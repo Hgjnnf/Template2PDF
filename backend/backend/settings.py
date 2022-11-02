@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+FE_DOMAIN = os.environ['FE_DOMAIN']
+CORS_ALLOWED_ORIGINS = [
+    FE_DOMAIN,
+]
+
+CORS_EXPOSE_HEADERS = [
+    "Content-Disposition"
 ]
 
 ROOT_URLCONF = 'backend.urls'

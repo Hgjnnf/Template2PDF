@@ -6,12 +6,13 @@ import Button from "@mui/material/Button";
 import { AppBar, Toolbar } from "@mui/material";
 import { context } from "./Context";
 import { useNavigate } from "react-router-dom";
+import { postRequest } from "./utils";
 
 const Upload = () => {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
   });
-  const { updateList } = useContext(context);
+  const { updateList, saveFile } = useContext(context);
   let navigate = useNavigate();
 
   const unitFormatter = (size, unit) => {
@@ -24,34 +25,18 @@ const Upload = () => {
     </p>
   ));
 
-  const handleClick = () => {
-    const file = new FormData();
-    file.append("file", acceptedFiles[0]);
+  const handleClick = async () => {
+    const formData = new FormData();
+    formData.append("file", acceptedFiles[0]);
 
-    // API
-
-    const res = {
-      data: ["name", "amount", "date"],
-      status: 200,
-    };
+    const res = await postRequest("upload", formData, "multipart/formData");
 
     if (res.status === 200) {
-      localStorage.setItem("file", file);
+      saveFile(acceptedFiles[0]);
       updateList(res.data);
       navigate("/download");
     } else {
-      let errMsg;
-      switch (res.status) {
-        case 404:
-          errMsg = "A file is required for upload!";
-          break;
-        case 406:
-          errMsg = "Wrong file type. Must be .html!";
-          break;
-        default:
-          errMsg = `Unknown error. Status code: ${res.status}`;
-      }
-      alert(errMsg);
+      alert(`${res.status}; ${res.message}`);
     }
   };
 

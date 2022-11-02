@@ -1,5 +1,6 @@
 export const initialState = {
   varList: [],
+  file: null,
 };
 
 export const reducer = (state, action) => {
@@ -14,6 +15,16 @@ export const reducer = (state, action) => {
       return {
         ...state,
         varList: [],
+      };
+    case "SAVE_FILE":
+      return {
+        ...state,
+        file: payload,
+      };
+    case "CLEAR_FILE":
+      return {
+        ...state,
+        file: null,
       };
     default:
       alert(`No case for type ${type} found in reducer`);
