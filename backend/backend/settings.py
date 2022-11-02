@@ -62,6 +62,10 @@ CORS_ALLOWED_ORIGINS = [
     FE_DOMAIN,
 ]
 
+CORS_EXPOSE_HEADERS = [
+    "Content-Disposition"
+]
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [

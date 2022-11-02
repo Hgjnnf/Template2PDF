@@ -3,12 +3,12 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { context } from "./Context";
 import "./Download.css";
+import { forceFileDownload, postRequest } from "./utils";
 
 const Download = () => {
   const [file_name, setFileName] = useState("");
   const [context_obj, setContextObj] = useState({});
-  const file = localStorage.getItem("file");
-  const { varList, clearList } = useContext(context);
+  const { varList, file, clearList, clearFile } = useContext(context);
   let navigate = useNavigate();
 
   const handleChange = (key, value) => {
@@ -21,7 +21,13 @@ const Download = () => {
     }
   };
 
-  const handleClick = () => {
+  const exit = () => {
+    clearList();
+    clearFile();
+    navigate("/");
+  };
+
+  const handleClick = async () => {
     if (Object.keys(context_obj).length !== varList.length) {
       alert("Missing field!");
       return;
@@ -31,18 +37,26 @@ const Download = () => {
       alert("Missing file name!");
       return;
     }
-    // API
-    const res = {
-      data: "",
-      status: 200,
-    };
 
-    if (res.status !== 200) {
-      alert(res.data);
+    const json = JSON.stringify(context_obj);
+
+    if (!file) {
+      alert("Missing file!");
+      exit();
+      return;
     }
-    clearList();
-    localStorage.clear();
-    navigate("/");
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("context_obj", json);
+    formData.append("file_name", file_name);
+
+    const res = await postRequest("download", formData, "multipart/formData");
+    if (res.status !== 200) {
+      alert(`${res.status}; ${res.message}`);
+    }
+    forceFileDownload(res, file_name + ".pdf");
+    exit();
   };
 
   return (
