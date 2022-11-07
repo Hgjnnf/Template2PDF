@@ -10,13 +10,13 @@ class UploadViewSet(ViewSet):
     serializer_class = UploadSerializer
     
     def create(self, request):
-        file_uploaded = request.FILES.get('file_uploaded')
-        
-        if not file_uploaded:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        
+        file_uploaded = request.data['file']
+
+        if not file_uploaded or file_uploaded == 'undefined':
+            return Response("A file is required for upload!", status=status.HTTP_404_NOT_FOUND)
+
         if file_uploaded.content_type != 'text/html':
-            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+            return Response("Wrong file type. Must be .html!", status=status.HTTP_406_NOT_ACCEPTABLE)
 
         response = Utils.get_variable_nodes(file_uploaded.file)
         return Response(response, status=status.HTTP_200_OK)
@@ -25,7 +25,7 @@ class DownloadViewSet(ViewSet):
     serializer_class = DownloadSerializer
 
     def create(self, request):
-        file_uploaded = request.FILES.get('file_uploaded')
+        file_uploaded = request.data['file']
         context_obj = request.data.get('context_obj')
         file_name = request.data.get('file_name')
 
