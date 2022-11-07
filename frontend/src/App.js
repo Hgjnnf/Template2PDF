@@ -1,7 +1,9 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Upload from "./Upload";
-import Download from "./Download";
 import { ContextProvider } from "./Context";
+
+const Upload = React.lazy(() => import("./Upload"));
+const Download = React.lazy(() => import("./Download"));
 
 function App() {
   return (
