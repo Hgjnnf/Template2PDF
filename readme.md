@@ -51,7 +51,8 @@ Backend:
 ## Running Locally
 
 1. Download the dependencies:
-   Backend:
+
+   - Backend:
 
    ```
    django
@@ -60,8 +61,8 @@ Backend:
    xhtml2pdf
    ```
 
-   Frontend:
-   Run the command `npm install`
+   - Frontend:
+     Run the command `npm install`
 
 2. Open two terminals (one for backend and one for frontend)
 3. There are some secret keys that you will have to create on your own:
