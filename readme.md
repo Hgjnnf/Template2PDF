@@ -69,7 +69,7 @@ Backend:
 
    - DJANGO_SECRET_KEY (use Django's built-in get_random_secret_key() to generate one)
    - FE_DOMAIN (this is the url for your frontend server)
-   - REACT_APP_API_BASE (this is the url for your backend server)
+   - VITE_API_BASE (this is the url for your backend server)
 
 4. For frontend, run `cd frontend && npm start`
 5. For backend, run `cd backend && python manage.py runserver`

@@ -2,7 +2,7 @@ import axios from "axios";
 export const postRequest = async (url, data, contentType) => {
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_API_BASE}/api/${url}`,
+      `${import.meta.env.VITE_API_BASE}/api/${url}`,
       data,
       { headers: { "Content-Type": `${contentType}` } }
     );

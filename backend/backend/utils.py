@@ -30,7 +30,7 @@ class Utils():
         template = Template(file_obj)
         html  = template.render(Context(context_dict))
         result = io.BytesIO()
-        pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result)
+        pdf = pisa.pisaDocument(io.BytesIO(html.encode("UTF-8")), result)
         
         if not pdf.err:
             return HttpResponse(result.getvalue(), content_type='application/pdf')
